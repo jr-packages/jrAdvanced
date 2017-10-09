@@ -1,0 +1,125 @@
+%\VignetteIndexEntry{practical4}
+%!Snw weave = knitr
+%\VignetteEngine{knitr::knitr}
+<<echo=FALSE>>=
+results = "hide"; echo = FALSE
+@
+
+\documentclass[a4paper,justified,openany]{tufte-handout}
+
+<<setup, include=FALSE, cache=FALSE>>=
+library(knitr)
+library(methods)
+options(replace.assign=FALSE,width=50)
+
+opts_chunk$set(fig.path='knitr_figure/graphics-', 
+               cache.path='knitr_cache/graphics-', 
+               fig.align='center', 
+               dev='pdf', fig.width=5, fig.height=5, 
+               fig.show='hold', cache=FALSE, par=TRUE)
+knit_hooks$set(crop=hook_pdfcrop)
+
+knit_hooks$set(par=function(before, options, envir){
+  if (before && options$fig.show!='none') {
+    par(mar=c(3,3,2,1),cex.lab=.95,cex.axis=.9,
+        mgp=c(2,.7,0),tcl=-.01, las=1)
+  }}, crop=hook_pdfcrop)
+create_cohort = function(weight, height, centre) {
+  dd = data.frame(weight=weight, height=height)
+  coh = list(details = dd, centre=centre)
+  class(coh) = "cohort"
+  return(coh)
+}
+
+w = runif(3); h = runif(3); centre= "NCL"
+cc = create_cohort(w, h, centre)
+@
+
+\usepackage{amsmath}
+% Set up the images/graphics package
+\usepackage{graphicx}
+\setkeys{Gin}{width=\linewidth,totalheight=\textheight,keepaspectratio}
+\graphicspath{{graphics/}}
+\title{Advanced R programming: \Sexpr{ifelse(echo, "solutions","practical")}  4} 
+\author[Dr Colin Gillespie]{Dr Colin Gillespie}
+\date{}  % if the \date{} command is left out, the current date will be used
+
+\usepackage{booktabs}
+
+% The units package provides nice, non-stacked fractions and better spacing
+% for units.
+\usepackage{units}
+
+% The fancyvrb package lets us customize the formatting of verbatim
+% environments.  We use a slightly smaller font.
+\usepackage{fancyvrb}
+\fvset{fontsize=\normalsize}
+\newcommand{\cc}{\texttt}
+\graphicspath{{../graphics/}}
+\setcounter{secnumdepth}{2}
+\usepackage{microtype}
+\begin{document}
+
+\maketitle% this prints the handout title, author, and date
+
+
+
+\section*{Reference classes}
+
+<<P2, echo=FALSE>>=
+## Solutions ##
+randu = setRefClass("randu", 
+                    fields = list(calls = "numeric", 
+                                  seed="numeric", 
+                                  state="numeric"))
+randu$methods(get_state = function() state)
+randu$methods(set_state = function(initial) state <<- initial)
+randu$methods(get_seed = function() seed)
+randu$methods(get_num_calls = function() calls)
+randu$methods(r = function() {
+  calls <<- calls + 1
+  state <<- (65539*state) %% 2^31
+  return(state/2^31)
+})
+@
+
+The example in the notes created a random number generator using a reference class.
+\begin{itemize}
+\item Reproduce the \cc{randu} generator from the notes and make sure that it works as advertised.\sidenote{The reference class version, not the function closure generator.}
+\item When we initialise the random number generator, the very first state is called the \cc{seed}. Store this variable and create a new function called \cc{get\_seed} that will return the initial seed, i.e.\marginnote{Reference classes also have an initialise method - that way we would only specify the seed and would then initialise the other variables. I'll give you an example in the solutions.}
+<<>>=
+r = randu(calls=0, seed=10, state=10)
+r$r()
+r$get_state()
+r$get_seed()
+@
+<<echo=echo>>=
+##Solutions - see below
+@
+\item Create a variable that stores the number of times the generator has been called. You should be able to access this variable with the function \cc{get\_num\_calls}
+<<>>=
+r = randu(calls=0, seed=10, state=10)
+r$get_num_calls()
+r$r()
+r$r()
+r$get_num_calls()
+@
+
+\end{itemize}
+
+<<P2, echo=echo>>=
+@
+
+\newpage
+\section*{Solutions}
+
+Solutions are contained within the course package
+<<eval=FALSE>>=
+library("jrAdvanced")
+vignette("solutions4", package="jrAdvanced")
+@
+
+
+
+
+\end{document}

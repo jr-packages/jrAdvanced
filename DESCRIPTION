@@ -1,0 +1,18 @@
+Package: jrAdvanced
+Type: Package
+Title: The jrAdvanced package
+Version: 0.1.0
+Authors@R: person("Colin", "Gillespie",
+    email="colin@jumpingrivers.com", 
+    role = c("aut", "cre"))
+Maintainer: Colin Gillespie
+    <colin@jumpingrivers.com>
+Description: An R package for the Advanced R programming run by Jumping Rivers.
+URL: https://jumpingrivers.com
+VignetteBuilder: knitr
+License: GPL-3 | GPL-2
+Depends:
+    R (>= 3.1), pryr
+Suggests:
+    knitr, fortunes
+RoxygenNote: 6.0.1

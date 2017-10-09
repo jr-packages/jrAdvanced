@@ -1,0 +1,196 @@
+%\VignetteIndexEntry{practical2}
+%!Snw weave = knitr
+%\VignetteEngine{knitr::knitr}
+<<echo=FALSE>>=
+results = "hide"; echo = FALSE
+@
+
+\documentclass[a4paper,justified,openany]{tufte-handout}
+
+<<setup, include=FALSE, cache=FALSE>>=
+library(knitr)
+library(methods)
+options(replace.assign=FALSE,width=50)
+
+opts_chunk$set(fig.path='knitr_figure/graphics-', 
+               cache.path='knitr_cache/graphics-', 
+               fig.align='center', 
+               dev='pdf', fig.width=5, fig.height=5, 
+               fig.show='hold', cache=FALSE, par=TRUE)
+knit_hooks$set(crop=hook_pdfcrop)
+
+knit_hooks$set(par=function(before, options, envir){
+  if (before && options$fig.show!='none') {
+    par(mar=c(3,3,2,1),cex.lab=.95,cex.axis=.9,
+        mgp=c(2,.7,0),tcl=-.01, las=1)
+  }}, crop=hook_pdfcrop)
+create_cohort = function(weight, height, centre) {
+  dd = data.frame(weight=weight, height=height)
+  coh = list(details = dd, centre=centre)
+  class(coh) = "cohort"
+  return(coh)
+}
+
+w = runif(3); h = runif(3); centre= "NCL"
+cc = create_cohort(w, h, centre)
+@
+
+\usepackage{amsmath}
+% Set up the images/graphics package
+\usepackage{graphicx}
+\setkeys{Gin}{width=\linewidth,totalheight=\textheight,keepaspectratio}
+\graphicspath{{graphics/}}
+\title{Advanced R programming: \Sexpr{ifelse(echo, "solutions","practical")}  2} 
+\author[Dr Colin Gillespie]{Dr Colin Gillespie}
+\date{}  % if the \date{} command is left out, the current date will be used
+
+\usepackage{booktabs}
+
+% The units package provides nice, non-stacked fractions and better spacing
+% for units.
+\usepackage{units}
+
+% The fancyvrb package lets us customize the formatting of verbatim
+% environments.  We use a slightly smaller font.
+\usepackage{fancyvrb}
+\fvset{fontsize=\normalsize}
+\newcommand{\cc}{\texttt}
+\graphicspath{{../graphics/}}
+\setcounter{secnumdepth}{2}
+\usepackage{microtype}
+\begin{document}
+
+\maketitle% this prints the handout title, author, and date
+
+
+\section{S3 objects}\label{S3}
+
+\begin{enumerate}
+\item Following the cohort example in the notes, suppose we want to create a \cc{mean} method.
+\begin{itemize}
+\item List all S3 methods associated with the \cc{mean} function.
+<<echo=echo, results=results>>=
+methods("mean")
+@
+
+\item Examine the source code of \cc{mean}. 
+<<echo=echo, results="hide">>=
+body("mean")
+@
+\item What are the arguments of \cc{mean}?
+<<echo=echo, results=results>>=
+args("mean")
+@
+\item Create a function called \cc{mean.cohort} that returns a vector containing the mean weight and mean height.\sidenote{Ensure that you can pass in the standard \cc{mean} arguments, i.e. \cc{na.rm}.}
+<<echo=echo, results='hide'>>=
+mean.cohort = function(x, ...) {
+  m1 = mean(x$details[ ,1], ...)
+  m2 = mean(x$details[ ,2], ...)
+  return(c(m1, m2))
+}
+@
+
+\end{itemize}
+\item Let's now make a similar function for the standard deviation
+\begin{itemize}
+\item Look at the arguments of the \cc{sd} function.
+\item Create an function call \cc{sd.cohort} that returns a vector containing the weight and height standard deviation.\sidenote{Ensure that you can pass in the standard \cc{sd} arguments, i.e. \cc{na.rm}.}
+\item Create a default \cc{sd} function. Look at \cc{cor.default} in the notes for a hint.
+<<echo=echo, results=results>>=
+sd = function(x, ...) UseMethod("sd")
+sd.default = function(x, ...) stats::sd(x, ...)
+sd.cohort = function(x, ...) {
+  s1 = sd(x$details[ ,1], ...)
+  s2 = sd(x$details[ ,2], ...)
+  return(c(s1, s2))
+} 
+@
+\end{itemize}
+\item Create a \cc{summary} method for the \cc{cohort} class. When the \cc{summary} function is called on a \cc{cohort} object it should call the base \cc{summary} on the \cc{details} 
+element.
+\begin{itemize}
+\item Use the \cc{body} function to check if the function is already a generic function.
+\item Use the \cc{args} function to determine the arguments.
+\item Create a \cc{summary.cohort} function
+\end{itemize}
+<<echo=echo, results=results>>=
+## summary is already a generic
+body(summary)
+
+## Match the args
+args(summary)
+
+## Function
+summary.cohort = function(object, ...) summary(object$details, ...)
+@
+\item Create a \cc{hist} method for the \cc{cohort} class. When the \cc{hist} function is called on a \cc{cohort} object, it should produce a single plot showing two histograms - one for height and another for weight.
+<<echo=echo, results=results>>=
+## hist is already a generic
+body(hist)
+
+## Match the args
+args(hist)
+
+## Function
+hist.cohort = function(x, ...) {
+  op = par(mfrow=c(1, 2))
+  hist(x$details[,1], main="Weight")
+  hist(x$details[,2], main="Height")
+  par(op)
+}
+@
+\item Create a \cc{[} method for the \cc{cohort} class. This method should return a \cc{cohort} object, but with the relevant rows sub setted. For example, if \cc{cc} was a cohort object, then
+<<eval=FALSE>>=
+cc[1:3,]
+@
+\noindent would return the first three rows of the data frame.
+<<echo=echo, results=results>>=
+## Lots of methods available. 
+methods('[')
+
+## Examine [.data.frame
+args('[.data.frame')
+
+'[.cohort' = function(x, ...){
+  x$details = x$details[...]
+  x
+}
+@
+
+\item Create a \cc{[<-} method for the \cc{cohort} class. This method should allow us to replace values in the \cc{details} data frame, i.e.
+<<eval=FALSE>>=
+cc[1,1] = 10
+@
+
+<<echo=echo, results=results>>=
+## Lots of methods available. 
+methods('[<-')
+
+## Examine [.data.frame
+args('[<-.data.frame')
+
+'[<-.cohort' = function(x, i, j, value){
+  x$details[i, j] = value
+  x
+}
+cc[1:3, ] = 55
+@
+
+
+
+\end{enumerate}
+
+
+
+\section*{Solutions}
+
+Solutions are contained within the course package
+<<eval=FALSE>>=
+library("jrAdvanced")
+vignette("solutions2", package="jrAdvanced")
+@
+
+
+
+
+\end{document}
