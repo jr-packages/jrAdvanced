@@ -12,7 +12,9 @@ URL: https://jumpingrivers.com
 VignetteBuilder: knitr
 License: GPL-3 | GPL-2
 Depends:
-    R (>= 3.1), pryr
+    R (>= 3.1)
+Imports:
+    pryr
 Suggests:
     knitr, fortunes
 RoxygenNote: 6.0.1
