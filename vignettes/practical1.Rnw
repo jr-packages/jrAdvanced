@@ -35,7 +35,7 @@ knit_hooks$set(par=function(before, options, envir){
 
 \title{Advanced R programming: \Sexpr{ifelse(echo, "solutions","practical")} 1} 
 \author[Jumping Rivers]{Jumping Rivers}
-%\date{}  % if the \date{} command is left out, the current date will be used
+\date{}  % if the \date{} command is left out, the current date will be used
 
 \usepackage{booktabs}
 

@@ -41,7 +41,7 @@ cc = create_cohort(w, h, centre)
 \setkeys{Gin}{width=\linewidth,totalheight=\textheight,keepaspectratio}
 \graphicspath{{graphics/}}
 \title{Advanced R programming: \Sexpr{ifelse(echo, "solutions","practical")}  3} 
-\author[Dr Colin Gillespie]{Dr Colin Gillespie}
+\author[Jumping Rivers]{Jumping Rivers}
 \date{}  % if the \date{} command is left out, the current date will be used
 \usepackage{booktabs}
 \usepackage{units}
