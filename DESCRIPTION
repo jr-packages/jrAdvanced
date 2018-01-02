@@ -14,7 +14,8 @@ License: GPL-3 | GPL-2
 Depends:
     R (>= 3.1)
 Imports:
-    pryr
+    pryr, jrData
+Remotes: jr-packages/jrData
 Suggests:
     knitr, fortunes
 RoxygenNote: 6.0.1
