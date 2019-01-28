@@ -16,7 +16,6 @@ Depends:
     R (>= 3.1)
 Imports:
     pryr
-Remotes: jr-packages
 Suggests:
     knitr, fortunes
 RoxygenNote: 6.1.1
