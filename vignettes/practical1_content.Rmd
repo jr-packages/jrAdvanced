@@ -1,5 +1,3 @@
-Advanced R programming: Practical 2
-
 ## Rprofile and Renviron
 
 1. Create an `.Rprofile` file. An easy way of creating the file is to use
@@ -300,4 +298,5 @@ Solutions are contained within the course package
 ```{r, eval=FALSE}
 library("jrAdvanced")
 vignette("solutions1", package="jrAdvanced")
+```
 ```
