@@ -17,5 +17,5 @@ Depends:
 Imports:
     pryr
 Suggests:
-    knitr, fortunes
+    knitr, fortunes, tufte, rmarkdown
 RoxygenNote: 6.1.1
