@@ -1,0 +1,52 @@
+## Reference classes
+
+```{r,P2, echo=FALSE}
+## Solutions ##
+randu = setRefClass("randu", 
+                    fields = list(calls = "numeric", 
+                                  seed="numeric", 
+                                  state="numeric"))
+randu$methods(get_state = function() state)
+randu$methods(set_state = function(initial) state <<- initial)
+randu$methods(get_seed = function() seed)
+randu$methods(get_num_calls = function() calls)
+randu$methods(r = function() {
+  calls <<- calls + 1
+  state <<- (65539*state) %% 2^31
+  return(state/2^31)
+})
+```
+
+The example in the notes created a random number generator using a reference class.
+
+- Reproduce the `randu` generator from the notes and make sure that it works as advertised.^[The reference class version, not the function closure generator.]
+- When we initialise the random number generator, the very first state is called the `seed`. Store this variable and create a new function called `get_seed` that will return the initial seed, i.e.^[Reference classes also have an initialise method - that way we would only specify the seed and would then initialise the other variables. I'll give you an example in the solutions.]
+```{r,}
+r = randu(calls=0, seed=10, state=10)
+r$r()
+r$get_state()
+r$get_seed()
+```
+```{r}
+##Solutions - see below
+```
+- Create a variable that stores the number of times the generator has been called. You should be able to access this variable with the function `get_num_calls`
+```{r,}
+r = randu(calls=0, seed=10, state=10)
+r$get_num_calls()
+r$r()
+r$r()
+r$get_num_calls()
+```
+
+
+```{r,P2}
+```
+
+## Solutions
+
+Solutions are contained within the course package
+```{r,eval=FALSE, echo = TRUE}
+library("jrAdvanced")
+vignette("solutions4", package="jrAdvanced")
+```

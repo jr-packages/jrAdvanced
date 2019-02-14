@@ -1,0 +1,113 @@
+```{r,echo=FALSE}
+setClass("Cohort",
+         representation(
+           details = "data.frame",
+           centre = "character"
+         )
+)
+w = c(32, 39, 33, 66, 24)
+h = c(1.4, 1.47, 1.47, 1.58, 1.25)
+coh_s4 = new("Cohort",
+             details = data.frame(weight=w, height=h),
+             centre = "NCL"
+)
+
+```
+## S4 objects ^[I've intentionally mirrored the functions from previous practical to highlight the differences.]
+
+1. Following the `Cohort` example in the notes, suppose we want to make a generic for the `mean` function. 
+
+2. Using the `isGeneric` function, determine if the `mean` function is an S4 generic. If not, use `setGeneric` to create an S4 generic.
+```{r, }
+isGeneric("mean")
+setGeneric("mean")
+```
+3. Using `setMethod`, create a `mean` method for the `Cohort` class.^[Be careful to match the arguments.]
+```{r, , message=FALSE}
+setMethod("mean", signature=c("Cohort"), 
+          definition=function(x, ...) {
+            m1 = mean(x@details[ ,1], ...)
+            m2 = mean(x@details[ ,2], ...)
+            return(c(m1, m2))
+          }
+)
+```
+
+4. Repeat the above steps for the `sd` function.
+```{r, , message=FALSE}
+isGeneric("sd")
+setGeneric("sd")
+setMethod("sd", signature=c("Cohort"), 
+          definition=function(x, na.rm=FALSE) {
+            m1 = sd(x@details[ ,1], na.rm=na.rm)
+            m2 = sd(x@details[ ,2], na.rm=na.rm)
+            return(c(m1, m2))
+          }
+)
+```
+5. Create a `summary` method for the `cohort` class
+
+6. Use `isGeneric` to determine if an S4 generic exists.
+7. Use `setGeneric` to set the generic method (if necessary).
+8. Create an S4 summary method.
+
+```{r, , message=FALSE}
+isGeneric("summary")
+setGeneric("summary")
+setMethod("summary", signature=c("Cohort"), 
+                    definition=function(object, ...) {
+            summary(object@details)
+          }
+)
+```
+
+9. Create a `hist` method for the `cohort` class. When the `hist` function is called on a `cohort`, it should produce a single plot showing two histograms - one for height and another for weight.
+```{r, , message=FALSE}
+isGeneric("hist")
+setGeneric("hist")
+setMethod("hist", signature=c("Cohort"), 
+          definition=function(x, ...) {
+            op = par(mfrow=c(1, 2))
+            hist(x@details[,1], main="Weight", ...)
+            hist(x@details[,2], main="Height", ...)
+            par(op)
+          }
+)
+```
+
+10. Create a `[` method for the `cohort` class. This method should return a `cohort` object, but with the relevant rows sub setted.
+```{r, }
+isGeneric("[")
+getGeneric('[')
+## Can you determine what drop does?
+setMethod("[", signature=c("Cohort"), 
+          definition=function(x, i, j, ..., drop = TRUE) {
+            x@details = x@details[i, j, ..., drop=drop]
+            x
+          }
+)
+```
+
+11. Create a `<-` method for the `cohort` class. This method should allow us to replace values in the `details` data frame.
+
+```{r, }
+isGeneric("[<-")
+setGeneric('[<-')
+
+setMethod("[<-", signature=c("Cohort"), 
+          definition=function(x, i, j, value) {
+            x@details[i, j] = value
+            x
+          }
+)
+coh_s4[1,]= 5
+```
+
+
+## Solutions
+
+Solutions are contained within the course package
+```{r,eval=FALSE}
+library("jrAdvanced")
+vignette("solutions3", package="jrAdvanced")
+```
