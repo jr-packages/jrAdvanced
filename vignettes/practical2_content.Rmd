@@ -35,10 +35,10 @@ sd.cohort = function(x, ...) {
   return(c(s1, s2))
 } 
 ```
-7. Create a `summary` method for the `cohort` class. When the `summary` function is called on a `cohort` object it should call the base `summary` on the `details`  element.
-8. Use the `body` function to check if the function is already a generic function.
-9. Use the `args` function to determine the arguments.
-10. Create a `summary.cohort` function
+7. We want to create a `summary` method for the `cohort` class. When the `summary` function is called on a `cohort` object it should call the base `summary` on the `details`  element:
+    - Use the `body` function to check if the function is already a generic function.
+    - Use the `args` function to determine the arguments.
+    - Create a `summary.cohort` function
 ```{r }
 ## summary is already a generic
 body(summary)
@@ -49,7 +49,7 @@ args(summary)
 ## Function
 summary.cohort = function(object, ...) summary(object$details, ...)
 ```
-11. Create a `hist` method for the `cohort` class. When the `hist` function is called on a `cohort` object, it should produce a single plot showing two histograms - one for height and another for weight.
+8. Create a `hist` method for the `cohort` class. When the `hist` function is called on a `cohort` object, it should produce a single plot showing two histograms - one for height and another for weight.
 ```{r }
 ## hist is already a generic
 body(hist)
