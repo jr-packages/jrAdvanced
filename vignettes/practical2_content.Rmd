@@ -1,19 +1,19 @@
 ## S3 objects
 
-1. Following the cohort example in the notes, suppose we want to create a`mean` method.
+1. Following the cohort example in the notes, suppose we want to create a `mean` method.
 2. List all S3 methods associated with the`mean` function.
 ```{r }
 methods("mean")
 ```
-3. Examine the source code of`mean`. 
+3. Examine the source code of `mean`. 
 ```{r results="hide"}
 body("mean")
 ```
-4. What are the arguments of`mean`?
+4. What are the arguments of `mean`?
 ```{r }
 args("mean")
 ```
-5. Create a function called`mean.cohort` that returns a vector containing the mean weight and mean height.`Ensure that you can pass in the standard`mean` arguments, i.e.`na.rm`.`
+5. Create a function called `mean.cohort` that returns a vector containing the mean weight and mean height. Ensure that you can pass in the standard `mean` arguments, i.e.`na.rm`.`
 ```{r results='hide'}
 mean.cohort = function(x, ...) {
   m1 = mean(x$details[ ,1], ...)
@@ -21,10 +21,8 @@ mean.cohort = function(x, ...) {
   return(c(m1, m2))
 }
 ```
-6. Let's now make a similar function for the standard deviation
-7. Look at the arguments of the`sd` function.
-8. Create an function call`sd.cohort` that returns a vector containing the weight and height standard deviation.`Ensure that you can pass in the standard`sd` arguments, i.e.`na.rm`.`
-9. Create a default`sd` function. Look at`cor.default` in the notes for a hint.
+6. Let's now make a similar function for the standard deviation. Look at the arguments of the `sd` function. Create an function call `sd.cohort` that returns a vector containing the weight and height standard deviation. Ensure that you can pass in the standard `sd` arguments, i.e.`na.rm`.`
+7. Create a default `sd` function. Look at `cor.default` in the notes for a hint.
 ```{r }
 sd = function(x, ...) UseMethod("sd")
 sd.default = function(x, ...) stats::sd(x, ...)
@@ -34,11 +32,10 @@ sd.cohort = function(x, ...) {
   return(c(s1, s2))
 } 
 ```
-10. Create a`summary` method for the`cohort` class. When the`summary` function is called on a`cohort` object it should call the base`summary` on the`details` 
-element.
-11. Use the`body` function to check if the function is already a generic function.
-12. Use the`args` function to determine the arguments.
-13. Create a`summary.cohort` function
+8. Create a `summary` method for the `cohort` class. When the`summary` function is called on a `cohort` object it should call the base`summary` on the `details`  element.
+9. Use the `body` function to check if the function is already a generic function.
+10. Use the `args` function to determine the arguments.
+11. Create a `summary.cohort` function
 ```{r }
 ## summary is already a generic
 body(summary)
@@ -49,7 +46,7 @@ args(summary)
 ## Function
 summary.cohort = function(object, ...) summary(object$details, ...)
 ```
-14. Create a`hist` method for the`cohort` class. When the`hist` function is called on a`cohort` object, it should produce a single plot showing two histograms - one for height and another for weight.
+12. Create a `hist` method for the `cohort` class. When the `hist` function is called on a `cohort` object, it should produce a single plot showing two histograms - one for height and another for weight.
 ```{r }
 ## hist is already a generic
 body(hist)
@@ -65,7 +62,7 @@ hist.cohort = function(x, ...) {
   par(op)
 }
 ```
-15. Create a`[` method for the `cohort` class. This method should return a`cohort` object, but with the relevant rows sub setted. For example, if`cc` was a cohort object, then
+13. Create a `[` method for the `cohort` class. This method should return a `cohort` object, but with the relevant rows sub setted. For example, if `cc` was a cohort object, then
 ```{r, eval=FALSE}
 cc[1:3,]
 ```
@@ -82,7 +79,7 @@ args('[.data.frame')
   x
 }
 ```
-16. Create a`[<-` method for the `cohort` class. This method should allow us to replace values in the`details` data frame, i.e.
+14. Create a `[<-` method for the `cohort` class. This method should allow us to replace values in the `details` data frame, i.e.
 ```{r, eval=FALSE}
 cc[1,1] = 10
 ```
@@ -104,7 +101,7 @@ cc[1:3, ] = 55
 ## Solutions
 
 Solutions are contained within the course package
-```{r, eval=FALSE}
+```{r, eval=FALSE, echo = TRUE}
 library("jrAdvanced")
 vignette("solutions2", package="jrAdvanced")
 ```

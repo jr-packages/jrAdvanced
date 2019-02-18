@@ -107,7 +107,7 @@ coh_s4[1,]= 5
 ## Solutions
 
 Solutions are contained within the course package
-```{r,eval=FALSE}
+```{r,eval=FALSE, echo = TRUE}
 library("jrAdvanced")
 vignette("solutions3", package="jrAdvanced")
 ```

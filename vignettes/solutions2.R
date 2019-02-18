@@ -83,7 +83,7 @@ args('[.data.frame')
 #  }
 #  cc[1:3, ] = 55
 
-## ---- eval=FALSE---------------------------
+## ---- eval=FALSE, echo = TRUE--------------
 #  library("jrAdvanced")
 #  vignette("solutions2", package="jrAdvanced")
 

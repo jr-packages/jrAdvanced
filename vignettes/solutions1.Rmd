@@ -1,5 +1,5 @@
 ---
-title: "Practical 2"
+title: "Practical 1"
 author: "Jumping Rivers"
 output:
   tufte::tufte_handout:
@@ -11,8 +11,6 @@ vignette: >
   \usepackage[utf8]{inputenc}
 ---
 
-
-## Practical 1
 
 ```{r echo=FALSE}
 library(tufte)

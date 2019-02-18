@@ -139,7 +139,7 @@ f = function(x) {
 }
 f(10)
 
-## ---- results='hide'-----------------------
+## ------------------------------------------
 f = function(x) {
   f = function(x) {
     x = 100
@@ -230,7 +230,7 @@ r$r()
 r$get_state()
 r$get_seed()
 
-## ---- eval=FALSE---------------------------
+## ---- eval=FALSE, echo = TRUE--------------
 #  library("jrAdvanced")
 #  vignette("solutions1", package="jrAdvanced")
 

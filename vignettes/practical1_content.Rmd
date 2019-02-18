@@ -12,7 +12,7 @@ if(interactive()) {
 }
 ```
 \noindent to the file and restart R. Does the welcome message appear?
-1. Try adding my suggestions to your `.Rprofile`, e.g.
+2. Try adding my suggestions to your `.Rprofile`, e.g.
 ```{r, eval=FALSE, tidy=FALSE, echo = TRUE}
 options(prompt="R> ", digits=4,
         show.signif.stars=FALSE)
@@ -24,12 +24,12 @@ r["CRAN"] = "http://cran.rstudio.com/"
 options(repos = r)
 rm(r)
 ```
-1. Try adding a few functions to your `.Rprofile`. See chapter 2 in the notes for help. Use the hidden environment trick. Also take a look at this stackoverflow question
+3. Try adding a few functions to your `.Rprofile`. See chapter 2 in the notes for help. Use the hidden environment trick. Also take a look at this stackoverflow question
 \begin{center}
 \url{http://goo.gl/TLFLQR}
 \end{center}
 for ideas.
-1. Create an `.Renviron` file and add the path to your packages.
+4. Create an `.Renviron` file and add the path to your packages.
 
 ## Argument matching
 
@@ -150,7 +150,7 @@ f(10)
 ##Nothing strange here. We just get
 f(10)
 ```
-1. A bit more tricky
+2. A bit more tricky
 ```{r, results='hide', echo = TRUE}
 f = function(x) {
   f = function(x) {
@@ -161,7 +161,7 @@ f = function(x) {
 }
 f(10)
 ```
-1. More complex
+3. More complex
 ```{r, results='hide', echo = TRUE}
 f = function(x) {
   f = function(x) {
@@ -197,8 +197,7 @@ f(10)
 ```
 
 
-1. 
-```{r, results='hide'}
+```{r}
 f = function(x) {
   f = function(x) {
     x = 100
@@ -295,8 +294,7 @@ r$get_num_calls()
 ## Solutions
 
 Solutions are contained within the course package
-```{r, eval=FALSE}
+```{r, eval=FALSE, echo = TRUE}
 library("jrAdvanced")
 vignette("solutions1", package="jrAdvanced")
-```
 ```

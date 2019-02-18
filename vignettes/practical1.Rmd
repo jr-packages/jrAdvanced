@@ -12,11 +12,9 @@ vignette: >
 ---
 
 
-## Practical 1
-
 ```{r echo=FALSE}
 library(tufte)
-knitr::opts_chunk$set(results = "hide", echo = FALSE)
+knitr::opts_chunk$set(results = "hide", echo = FALSE, message = FALSE)
 ```
 
 ```{r child = 'practical1_content.Rmd'}

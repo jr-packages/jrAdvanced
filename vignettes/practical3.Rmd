@@ -12,8 +12,6 @@ vignette: >
 ---
 
 
-## Practical 3
-
 ```{r echo=FALSE}
 library(tufte)
 knitr::opts_chunk$set(results = "hide", echo = FALSE)
