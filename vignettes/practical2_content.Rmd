@@ -21,9 +21,12 @@ mean.cohort = function(x, ...) {
   return(c(m1, m2))
 }
 ```
-6. Let's now make a similar function for the standard deviation. Look at the arguments of the `sd` function. Create an function call `sd.cohort` that returns a vector containing the weight and height standard deviation. Ensure that you can pass in the standard `sd` arguments, i.e.`na.rm`.`
-7. Create a default `sd` function. Look at `cor.default` in the notes for a hint.
-```{r }
+6. Let's now make a similar function for the standard deviation:
+    - Look at the arguments of the `sd` function. 
+    - Create a default `sd` function. Look at `cor.default` in the notes for a hint.
+    - Create an function call `sd.cohort` that returns a vector containing the weight and height standard deviation. Ensure that you can pass in the standard `sd` arguments, i.e. `na.rm`.`
+```{r}
+args(sd)
 sd = function(x, ...) UseMethod("sd")
 sd.default = function(x, ...) stats::sd(x, ...)
 sd.cohort = function(x, ...) {
@@ -32,10 +35,10 @@ sd.cohort = function(x, ...) {
   return(c(s1, s2))
 } 
 ```
-8. Create a `summary` method for the `cohort` class. When the`summary` function is called on a `cohort` object it should call the base`summary` on the `details`  element.
-9. Use the `body` function to check if the function is already a generic function.
-10. Use the `args` function to determine the arguments.
-11. Create a `summary.cohort` function
+7. Create a `summary` method for the `cohort` class. When the `summary` function is called on a `cohort` object it should call the base `summary` on the `details`  element.
+8. Use the `body` function to check if the function is already a generic function.
+9. Use the `args` function to determine the arguments.
+10. Create a `summary.cohort` function
 ```{r }
 ## summary is already a generic
 body(summary)
@@ -46,7 +49,7 @@ args(summary)
 ## Function
 summary.cohort = function(object, ...) summary(object$details, ...)
 ```
-12. Create a `hist` method for the `cohort` class. When the `hist` function is called on a `cohort` object, it should produce a single plot showing two histograms - one for height and another for weight.
+11. Create a `hist` method for the `cohort` class. When the `hist` function is called on a `cohort` object, it should produce a single plot showing two histograms - one for height and another for weight.
 ```{r }
 ## hist is already a generic
 body(hist)
@@ -62,8 +65,8 @@ hist.cohort = function(x, ...) {
   par(op)
 }
 ```
-13. Create a `[` method for the `cohort` class. This method should return a `cohort` object, but with the relevant rows sub setted. For example, if `cc` was a cohort object, then
-```{r, eval=FALSE}
+12. Create a `[` method for the `cohort` class. This method should return a `cohort` object, but with the relevant rows sub setted. For example, if `cc` was a cohort object, then
+```{r, eval=FALSE, echo = TRUE}
 cc[1:3,]
 ```
 \noindent would return the first three rows of the data frame.
@@ -79,8 +82,8 @@ args('[.data.frame')
   x
 }
 ```
-14. Create a `[<-` method for the `cohort` class. This method should allow us to replace values in the `details` data frame, i.e.
-```{r, eval=FALSE}
+13. Create a `[<-` method for the `cohort` class. This method should allow us to replace values in the `details` data frame, i.e.
+```{r, eval=FALSE, echo = TRUE}
 cc[1,1] = 10
 ```
 ```{r , eval = FALSE}

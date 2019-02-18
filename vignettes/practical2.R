@@ -19,6 +19,7 @@ mean.cohort = function(x, ...) {
 }
 
 ## ------------------------------------------
+args(sd)
 sd = function(x, ...) UseMethod("sd")
 sd.default = function(x, ...) stats::sd(x, ...)
 sd.cohort = function(x, ...) {
@@ -52,7 +53,7 @@ hist.cohort = function(x, ...) {
   par(op)
 }
 
-## ---- eval=FALSE---------------------------
+## ---- eval=FALSE, echo = TRUE--------------
 #  cc[1:3,]
 
 ## ------------------------------------------
@@ -67,7 +68,7 @@ args('[.data.frame')
   x
 }
 
-## ---- eval=FALSE---------------------------
+## ---- eval=FALSE, echo = TRUE--------------
 #  cc[1,1] = 10
 
 ## ---- eval = FALSE-------------------------
