@@ -15,14 +15,13 @@ coh_s4 = new("Cohort",
 ```
 ## S4 objects ^[I've intentionally mirrored the functions from previous practical to highlight the differences.]
 
-1. Following the `Cohort` example in the notes, suppose we want to make a generic for the `mean` function. 
-
-2. Using the `isGeneric` function, determine if the `mean` function is an S4 generic. If not, use `setGeneric` to create an S4 generic.
+1. Following the `Cohort` example in the notes, suppose we want to make a generic for the `mean` function:
+    - Using the `isGeneric` function, determine if the `mean` function is an S4 generic. If not, use `setGeneric` to create an S4 generic.
 ```{r, }
 isGeneric("mean")
 setGeneric("mean")
 ```
-3. Using `setMethod`, create a `mean` method for the `Cohort` class.^[Be careful to match the arguments.]
+- Using `setMethod`, create a `mean` method for the `Cohort` class.^[Be careful to match the arguments.]
 ```{r, , message=FALSE}
 setMethod("mean", signature=c("Cohort"), 
           definition=function(x, ...) {
@@ -33,7 +32,7 @@ setMethod("mean", signature=c("Cohort"),
 )
 ```
 
-4. Repeat the above steps for the `sd` function.
+2. Repeat the above steps for the `sd` function.
 ```{r, , message=FALSE}
 isGeneric("sd")
 setGeneric("sd")
@@ -45,11 +44,10 @@ setMethod("sd", signature=c("Cohort"),
           }
 )
 ```
-5. Create a `summary` method for the `cohort` class
-
-6. Use `isGeneric` to determine if an S4 generic exists.
-7. Use `setGeneric` to set the generic method (if necessary).
-8. Create an S4 summary method.
+3. We want to create a `summary` method for the `cohort` class:
+    - Use `isGeneric` to determine if an S4 generic exists.
+    - Use `setGeneric` to set the generic method (if necessary).
+    - Create an S4 summary method.
 
 ```{r, , message=FALSE}
 isGeneric("summary")
@@ -61,7 +59,7 @@ setMethod("summary", signature=c("Cohort"),
 )
 ```
 
-9. Create a `hist` method for the `cohort` class. When the `hist` function is called on a `cohort`, it should produce a single plot showing two histograms - one for height and another for weight.
+4. Create a `hist` method for the `cohort` class. When the `hist` function is called on a `cohort`, it should produce a single plot showing two histograms - one for height and another for weight.
 ```{r, , message=FALSE}
 isGeneric("hist")
 setGeneric("hist")
@@ -75,7 +73,7 @@ setMethod("hist", signature=c("Cohort"),
 )
 ```
 
-10. Create a `[` method for the `cohort` class. This method should return a `cohort` object, but with the relevant rows sub setted.
+5. Create a `[` method for the `cohort` class. This method should return a `cohort` object, but with the relevant rows sub setted.
 ```{r, }
 isGeneric("[")
 getGeneric('[')
@@ -88,7 +86,7 @@ setMethod("[", signature=c("Cohort"),
 )
 ```
 
-11. Create a `<-` method for the `cohort` class. This method should allow us to replace values in the `details` data frame.
+6. Create a `<-` method for the `cohort` class. This method should allow us to replace values in the `details` data frame.
 
 ```{r, }
 isGeneric("[<-")
