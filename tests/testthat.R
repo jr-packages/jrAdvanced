@@ -1,2 +1,2 @@
 library("testthat")
-test_check("jrAdvanced/")
+test_check("jrAdvanced")
