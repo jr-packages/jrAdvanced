@@ -6,7 +6,7 @@ knitr::opts_chunk$set(results = "hide", echo = FALSE, message = FALSE)
 #  file.exists("~/.Rprofile")
 
 ## ---- message=FALSE, echo = TRUE-----------
-if(interactive()) {
+if (interactive()) {
    message("Successfully loaded .Rprofile at ", date(), "\n")
 }
 
@@ -39,17 +39,17 @@ arg_explore = function(arg1, rg2, rg3)
 #3. Positional matching
 
 ## ---- fig.keep="none", echo = TRUE---------
-plot(type="l", 1:10, 11:20)
+plot(type = "l", 1:10, 11:20)
 
 ## ---- results='hide', echo = TRUE----------
-rnorm(mean=4, 4, n=5)
+rnorm(mean = 4, 4, n = 5)
 
 ## ---- tidy=FALSE, results='hide', fig.keep='none'----
 ## SOLUTION
 #plot(type="l", 1:10, 11:20) is equivilent to
-plot(x=1:10, y=11:20, type="l")
+plot(x = 1:10, y = 11:20, type = "l")
 #rnorm(mean=4, 4, n=5) is equivilent to
-rnorm(n=5, mean=4, sd=4)
+rnorm(n = 5, mean = 4, sd = 4)
 
 ## ---- echo = TRUE--------------------------
 ## Use regression as an example
@@ -69,7 +69,7 @@ stat_ana = function(x, y, trans=NULL) {
 ## ----  tidy=FALSE, results='hide', fig.keep='none'----
 ## SOLUTION
 stat_ana = function(x, y, trans=NULL) {
-  if(is.function(trans)) {
+  if (is.function(trans)) {
     x = trans(x)
     y = trans(y)
   }
@@ -79,7 +79,7 @@ stat_ana = function(x, y, trans=NULL) {
 ## ----  tidy=FALSE, results='hide', fig.keep='none'----
 ## SOLUTION
 stat_ana = function(x, y, trans=NULL) {
-  if(is.function(trans)) {
+  if (is.function(trans)) {
     x = trans(x)
     y = trans(y)
   } else if (trans == "normalise") {
@@ -160,15 +160,15 @@ f(10)
 ## ------------------------------------------
 poisson = function(lambda) {
      r = function(n=1) rpois(n, lambda)
-     d = function(x, log=FALSE) dpois(x, lambda, log=log)
-     return(list(r=r, d=d))
+     d = function(x, log=FALSE) dpois(x, lambda, log = log)
+     return(list(r = r, d = d))
 }
 
 ## ------------------------------------------
 geometric = function(prob) {
      r = function(n=1) rgeom(n, prob)
-     d = function(x, log=FALSE) dgeom(x, prob, log=log)
-     return(list(r=r, d=d))
+     d = function(x, log=FALSE) dgeom(x, prob, log = log)
+     return(list(r = r, d = d))
 }
 
 ## ---- randu, results="hide", echo = FALSE----
@@ -177,17 +177,17 @@ randu = function(seed) {
   state = seed
   calls = 0 #Store the number of calls
   r = function() {
-    state <<- (65539*state) %% 2^31
+    state <<- (65539 * state) %% 2^31
     ## Update the variable outside of this enviroment
     calls <<- calls + 1
-    state/2^31
+    state / 2^31
   }
   set_state = function(initial) state <<- initial
   get_state = function() state
   get_seed = function() seed
   get_num_calls = function() calls
-  list(r=r, set_state=set_state, get_state=get_state,
-       get_seed = get_seed, get_num_calls=get_num_calls)
+  list(r = r, set_state = set_state, get_state = get_state,
+       get_seed = get_seed, get_num_calls = get_num_calls)
 }
 r = randu(10)
 r$r()
@@ -213,17 +213,17 @@ randu = function(seed) {
   state = seed
   calls = 0 #Store the number of calls
   r = function() {
-    state <<- (65539*state) %% 2^31
+    state <<- (65539 * state) %% 2^31
     ## Update the variable outside of this enviroment
     calls <<- calls + 1
-    state/2^31
+    state / 2^31
   }
   set_state = function(initial) state <<- initial
   get_state = function() state
   get_seed = function() seed
   get_num_calls = function() calls
-  list(r=r, set_state=set_state, get_state=get_state,
-       get_seed = get_seed, get_num_calls=get_num_calls)
+  list(r = r, set_state = set_state, get_state = get_state,
+       get_seed = get_seed, get_num_calls = get_num_calls)
 }
 r = randu(10)
 r$r()
@@ -233,4 +233,3 @@ r$get_seed()
 ## ---- eval=FALSE, echo = TRUE--------------
 #  library("jrAdvanced")
 #  vignette("solutions1", package="jrAdvanced")
-
