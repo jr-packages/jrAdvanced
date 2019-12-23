@@ -1,21 +1,29 @@
-Package: jrAdvanced
 Type: Package
+Package: jrAdvanced
 Title: The jrAdvanced package
 Version: 0.1.1
-Authors@R: person("Colin", "Gillespie",
-    email="colin@jumpingrivers.com", 
-    role = c("aut", "cre"))
-Maintainer: Colin Gillespie
-    <colin@jumpingrivers.com>
-Description: An R package for the Advanced R programming run by Jumping Rivers.
-URL: https://jumpingrivers.com
-VignetteBuilder: knitr
+Authors@R: 
+    person(given = "Colin",
+           family = "Gillespie",
+           role = c("aut", "cre"),
+           email = "colin@jumpingrivers.com")
+Maintainer: Colin Gillespie <colin@jumpingrivers.com>
+Description: An R package for the Advanced R programming run by
+    Jumping Rivers.
 License: GPL-3 | GPL-2
-Encoding: UTF-8
+URL: https://jumpingrivers.com
 Depends:
     R (>= 3.1)
 Imports:
     pryr
 Suggests:
-    knitr, fortunes, tufte, rmarkdown, testthat, lintr
-RoxygenNote: 6.1.1
+    fortunes,
+    knitr,
+    lintr,
+    rmarkdown,
+    testthat,
+    tufte
+VignetteBuilder: 
+    knitr
+Encoding: UTF-8
+RoxygenNote: 7.0.2
