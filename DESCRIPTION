@@ -1,14 +1,14 @@
 Type: Package
 Package: jrAdvanced
-Title: The jrAdvanced package
-Version: 0.1.1
+Title: Jumping Rivers: Advanced Programming in R 
+Version: 0.1.2
 Authors@R: 
     person(given = "Colin",
            family = "Gillespie",
            role = c("aut", "cre"),
            email = "colin@jumpingrivers.com")
 Maintainer: Colin Gillespie <colin@jumpingrivers.com>
-Description: An R package for the Advanced R programming run by
+Description: An R package for the Advanced R programming course run by
     Jumping Rivers.
 License: GPL-3 | GPL-2
 URL: https://jumpingrivers.com
